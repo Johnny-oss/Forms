@@ -9,6 +9,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using Forms.Pages;
+using SeleniumExtras.PageObjects;
 
 namespace Forms.Tests
 {
@@ -19,6 +20,7 @@ namespace Forms.Tests
         private IWebDriver radioElement;
         private string baseURL;
         private StringBuilder verificationErrors;
+        private bool acceptNextAlert = true;
 
         [SetUp]
         public void SetupTest()
@@ -54,94 +56,165 @@ namespace Forms.Tests
         {   
             //HomePage
             Thread.Sleep(2000);
-            driver.FindElement(By.Id("nav_motorcycle")).Click();
+            HomePage homepage = new HomePage(driver);
+
+            homepage.Click();            
             Thread.Sleep(2000);
 
 
 
             //EnterVehicleDataPage
             //Make
-            driver.FindElement(By.Id("make")).Click();
-            driver.FindElement(By.XPath("//*[@id='make']/option[7]")).Click();
+            EnterVehicleDataPage form1 = new EnterVehicleDataPage(driver);            
+
+            form1.Make.Click();
+            form1.Optionmake.Click();
 
             //Model
-            driver.FindElement(By.Id("model")).Click();
-            driver.FindElement(By.XPath("//*[@id='model']/option[2]")).Click();
+            form1.Model.Click();
+            form1.Optionmodel.Click();
 
             //Cylinder Capacity
-            driver.FindElement(By.Id("cylindercapacity")).SendKeys("300");
+            form1.Cylindercapacity.SendKeys("300");
 
             //Engine Performance
-            driver.FindElement(By.Id("engineperformance")).SendKeys("1500");
+            form1.Engineperformance.SendKeys("1500");
+
 
             //Date of Manufacture
-            driver.FindElement(By.Id("dateofmanufacture")).SendKeys("02/01/2022");
+            form1.Dateofmanufacture.SendKeys("02/01/2022");           
             Thread.Sleep(2000);
 
             //Number of Seats*
-            driver.FindElement(By.Id("numberofseatsmotorcycle")).Click();
-            driver.FindElement(By.XPath("//*[@id='numberofseatsmotorcycle']/option[2]")).Click();
+            form1.Numberofseatsmotorcycle.Click();
+            form1.Optionnumberofseatsmotorcycle.Click();
 
             //List Price
-            driver.FindElement(By.Id("listprice")).SendKeys("20000");
+            form1.Listprice.SendKeys("20000");
+
 
             //Annual Mileage
-            driver.FindElement(By.Id("annualmileage")).SendKeys("10000");
+            form1.Annualmileage.SendKeys("10000");           
             Thread.Sleep(5000);
 
             //Button Next
-            driver.FindElement(By.Id("nextenterinsurantdata")).Click();
-                        
+            form1.Btnnextenterinsurantdata.Click();
+                       
+            
+            //Espera
+            WebDriverWait espera = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            espera.PollingInterval = TimeSpan.FromMilliseconds(500);
+
+            IWebElement meuElemento = espera.Until(d => d.FindElement(By.Id("firstname")));
 
 
             //EnterInsurantDataPage            
             //First Name
-            driver.FindElement(By.Id("firstname")).SendKeys("Josh");
+            EnterInsurantDataPage form2 = new EnterInsurantDataPage(driver);
+
+            form2.Firstname2.SendKeys("Josh");
+           
 
             //Last Name
-            driver.FindElement(By.Id("lastname")).SendKeys("Silva");
-
+            form2.Lastname.SendKeys("Silva");
+            
             //Date of Birth
-            driver.FindElement(By.Id("birthdate")).SendKeys("02/01/2000");
+            form2.Birthdate.SendKeys("02/01/2000");
+            
 
             //Gender
-            driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div/form/div/section[2]/div[4]/p/label[1]/span")).Click();           
+            form2.Gender.Click();                      
 
             //Street Address
-            driver.FindElement(By.Id("streetaddress")).SendKeys("Rua A");
-
+            form2.Streetaddress.SendKeys("Rua A");
+            
             //Country
-            driver.FindElement(By.Id("country")).Click();
-            driver.FindElement(By.XPath("//*[@id='country']/option[32]")).Click();
+            form2.Country.Click();
+            form2.OptionCountry.Click();            
 
             //Zip Code
-            driver.FindElement(By.Id("zipcode")).SendKeys("2222");
-
+            form2.Zipcode.SendKeys("2222");
+            
             //City
-            driver.FindElement(By.Id("city")).SendKeys("Recife");
-
+            form2.City.SendKeys("Recife");
+            
             //Occupation
-            driver.FindElement(By.Id("occupation")).Click();
-            driver.FindElement(By.XPath("//*[@id='occupation']/option[4]")).Click();
-
+            form2.Occupation.Click();
+            form2.OptionOccupation.Click();
+            
             //Hobbies
-            driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div/form/div/section[2]/div[10]/p/label[5]/span")).Click();
+            form2.Hobbies.Click();
+            
+            //Website
+            //Espera 
+            //WebDriverWait  wait = new WebDriverWait(driver, new TimeSpan(0,0,10));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(4));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.Id("website")));
 
-            //Website    
-            driver.FindElement(By.Id("website")).SendKeys("https://www.linkedin.com/in/johnnysoaresdemelo/");
-
+            form2.Website.SendKeys("https://www.linkedin.com/in/johnnysoaresdemelo/");
+            
             //Picture
             String Filepath = @"C:/Users/johnn/COMECOME.jpg";
             
-            driver.FindElement(By.Id("picturecontainer")).SendKeys(Filepath);
+            form2.Picturecontainer.SendKeys(Filepath);           
             Thread.Sleep(3000);
 
-            IWebElement elemento = driver.FindElement(By.Id("picture"));
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(elemento.GetAttribute("title").Equals("COMECOME.jpg"));
+            IWebElement elementos = form2.PictureField;
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(elementos.GetAttribute("title").Equals("COMECOME.jpg"));
             
             
+            
+            
+        }
 
-            
+
+
+        private bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        private bool IsAlertPresent()
+        {
+            try
+            {
+                driver.SwitchTo().Alert();
+                return true;
+            }
+            catch (NoAlertPresentException)
+            {
+                return false;
+            }
+        }
+
+        private string CloseAlertAndGetItsText()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
+            }
         }
 
 

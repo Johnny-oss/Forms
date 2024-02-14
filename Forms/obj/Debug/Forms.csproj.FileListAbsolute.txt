@@ -39,3 +39,4 @@ C:\Users\johnn\source\repos\Forms\Forms\obj\Debug\Forms.csproj.CopyComplete
 C:\Users\johnn\source\repos\Forms\Forms\obj\Debug\Forms.dll
 C:\Users\johnn\source\repos\Forms\Forms\obj\Debug\Forms.pdb
 C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\SeleniumExtras.WaitHelpers.dll
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\SeleniumExtras.PageObjects.dll
