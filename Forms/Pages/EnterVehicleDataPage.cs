@@ -23,8 +23,8 @@ namespace Forms.Pages
 
         [FindsBy(How = How.Id, Using = "make")]        
         public IWebElement Make { get; set; }
-
         //IWebElement Make => driver.FindElement(By.Id("make"));
+
         [FindsBy(How = How.XPath, Using = "//*[@id='make']/option[7]")]
         public IWebElement Optionmake { get; set; }
         //IWebElement Optionmake => driver.FindElement(By.XPath("//*[@id='make']/option[7]"));

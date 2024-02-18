@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="0" runstate="Runnable" testcasecount="1" result="Passed" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.17.0.0" clr-version="4.0.30319.42000" start-time="2024-02-17 13:27:31Z" end-time="2024-02-17 13:28:19Z" duration="48.482048">
+  <command-line><![CDATA[nunit3-console.exe  "C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\Forms.dll" --result=TestResultado.xml;format=nunit3 --out=TestResultado.html;format=html]]></command-line>
+  <test-suite type="Assembly" id="1-1002" name="Forms.dll" fullname="C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\Forms.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2024-02-17T13:27:32.3150556Z" end-time="2024-02-17T13:28:19.4531732Z" duration="47.137763" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+    <environment framework-version="4.0.1.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.19045.0" platform="Win32NT" cwd="C:\Users\johnn\source\repos\Forms\packages\NUnit.ConsoleRunner.3.17.0\tools" machine-name="LAPTOP-0Q75IVKA" user="johnn" user-domain="LAPTOP-0Q75IVKA" culture="pt-BR" uiculture="pt-BR" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\Users\johnn\source\repos\Forms\packages\NUnit.ConsoleRunner.3.17.0\tools" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageTargetFrameworkName" value=".NETFramework,Version=v4.7.2" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="TargetRuntimeFramework" value="net-4.7.2" />
+      <setting name="NumberOfTestWorkers" value="8" />
+    </settings>
+    <properties>
+      <property name="_PID" value="10544" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <test-suite type="TestSuite" id="1-1003" name="Forms" fullname="Forms" runstate="Runnable" testcasecount="1" result="Passed" start-time="2024-02-17T13:27:32.3359995Z" end-time="2024-02-17T13:28:19.4531732Z" duration="47.116758" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1-1004" name="Tests" fullname="Forms.Tests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2024-02-17T13:27:32.3369952Z" end-time="2024-02-17T13:28:19.4521589Z" duration="47.116029" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestFixture" id="1-1000" name="PreencherFormulario" fullname="Forms.Tests.PreencherFormulario" classname="Forms.Tests.PreencherFormulario" runstate="Runnable" testcasecount="1" result="Passed" start-time="2024-02-17T13:27:32.3389908Z" end-time="2024-02-17T13:28:19.4484255Z" duration="47.108922" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0">
+          <test-case id="1-1001" name="PreencherFormularioTest" fullname="Forms.Tests.PreencherFormulario.PreencherFormularioTest" methodname="PreencherFormularioTest" classname="Forms.Tests.PreencherFormulario" runstate="Runnable" seed="332014567" result="Passed" start-time="2024-02-17T13:27:32.3839499Z" end-time="2024-02-17T13:28:19.4315887Z" duration="47.048408" asserts="0" />
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

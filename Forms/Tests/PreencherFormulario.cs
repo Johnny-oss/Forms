@@ -10,17 +10,22 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using Forms.Pages;
 using SeleniumExtras.PageObjects;
+using AventStack.ExtentReports;
+using Forms.Reports;
+
 
 namespace Forms.Tests
 {
     [TestFixture]
     public class PreencherFormulario
     {
-        private IWebDriver driver;
-        private IWebDriver radioElement;
+        private IWebDriver driver;        
         private string baseURL;
         private StringBuilder verificationErrors;
         private bool acceptNextAlert = true;
+        private ExtentReports extensao = MyExtentReports.GetInstance();
+        private ExtentTest test;
+        
 
         [SetUp]
         public void SetupTest()
@@ -30,7 +35,9 @@ namespace Forms.Tests
             baseURL = "https://sampleapp.tricentis.com/101/";
             driver.Navigate().GoToUrl(baseURL);
             verificationErrors = new StringBuilder();
-            
+            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            test = extensao.CreateTest(NUnit.Framework.TestContext.CurrentContext.Test.MethodName);           
+
 
         }
 
@@ -40,6 +47,8 @@ namespace Forms.Tests
         {
             try
             {
+                MyExtentReports.LogScreenshot(driver, test);
+                extensao.Flush();
                 driver.Quit();
             }
             catch (Exception)
@@ -53,13 +62,14 @@ namespace Forms.Tests
 
         [Test]
         public void PreencherFormularioTest()
-        {   
+        {
+            test.Log(Status.Info, "Iniciando teste...");
             //HomePage
             Thread.Sleep(2000);
             HomePage homepage = new HomePage(driver);
 
             homepage.Click();            
-            Thread.Sleep(2000);
+            Thread.Sleep(2000);          
 
 
 
@@ -161,10 +171,10 @@ namespace Forms.Tests
 
             IWebElement elementos = form2.PictureField;
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(elementos.GetAttribute("title").Equals("COMECOME.jpg"));
-            
-            
-            
-            
+
+            test.Log(Status.Pass, "Teste bem-sucedido!");
+
+
         }
 
 
