@@ -199,3 +199,14 @@ C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\System.Reflection.Metadata.xml
 C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\System.Text.Encodings.Web.xml
 C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\AngleSharp.dll
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\WebDriverManager.dll
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\AngleSharp.xml
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\ICSharpCode.SharpZipLib.pdb
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\ICSharpCode.SharpZipLib.xml
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\Microsoft.Win32.Registry.xml
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\System.Security.AccessControl.xml
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\johnn\source\repos\Forms\Forms\bin\Debug\System.Text.Encoding.CodePages.xml

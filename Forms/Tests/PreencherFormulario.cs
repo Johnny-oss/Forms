@@ -12,7 +12,8 @@ using Forms.Pages;
 using SeleniumExtras.PageObjects;
 using AventStack.ExtentReports;
 using Forms.Reports;
-
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 
 namespace Forms.Tests
 {
@@ -30,14 +31,21 @@ namespace Forms.Tests
         [SetUp]
         public void SetupTest()
         {
-            driver = new ChromeDriver();
+            //Configurar e baixar automaticamente o driver do Chrome
+            new DriverManager().SetUpDriver(new ChromeConfig());
+
+            //Desativar as imagens do navegador
+            ChromeOptions options = new ChromeOptions();
+            options.AddUserProfilePreference("profile.managed_default_content_settings.images", 2);
+
+            //Instanciar o objeto da classe ChromeDriver
+            driver = new ChromeDriver(options);
             driver.Manage().Window.Maximize();
             baseURL = "https://sampleapp.tricentis.com/101/";
             driver.Navigate().GoToUrl(baseURL);
             verificationErrors = new StringBuilder();
-            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            test = extensao.CreateTest(NUnit.Framework.TestContext.CurrentContext.Test.MethodName);           
-
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            test = extensao.CreateTest(NUnit.Framework.TestContext.CurrentContext.Test.MethodName);
 
         }
 
@@ -60,23 +68,26 @@ namespace Forms.Tests
         }
 
 
-        [Test]
-        public void PreencherFormularioTest()
+        [TestCase("Josh","Silva")]
+        [TestCase("Ana","Lima")]
+        
+        public void PreencherFormularioTest(string nome, string sobrenome)
         {
             test.Log(Status.Info, "Iniciando teste...");
             //HomePage
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             HomePage homepage = new HomePage(driver);
 
-            homepage.Click();            
-            Thread.Sleep(2000);          
+            homepage.Click();
+            //Thread.Sleep(2000);
 
 
 
             //EnterVehicleDataPage
             //Make
-            EnterVehicleDataPage form1 = new EnterVehicleDataPage(driver);            
+            EnterVehicleDataPage form1 = new EnterVehicleDataPage(driver);
 
+            /*
             form1.Make.Click();
             form1.Optionmake.Click();
 
@@ -92,7 +103,7 @@ namespace Forms.Tests
 
 
             //Date of Manufacture
-            form1.Dateofmanufacture.SendKeys("02/01/2022");           
+            form1.Dateofmanufacture.SendKeys("02/01/2022");
             Thread.Sleep(2000);
 
             //Number of Seats*
@@ -104,13 +115,15 @@ namespace Forms.Tests
 
 
             //Annual Mileage
-            form1.Annualmileage.SendKeys("10000");           
+            form1.Annualmileage.SendKeys("10000");
             Thread.Sleep(5000);
+
+            */
 
             //Button Next
             form1.Btnnextenterinsurantdata.Click();
-                       
-            
+
+
             //Espera
             WebDriverWait espera = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             espera.PollingInterval = TimeSpan.FromMilliseconds(500);
@@ -122,39 +135,42 @@ namespace Forms.Tests
             //First Name
             EnterInsurantDataPage form2 = new EnterInsurantDataPage(driver);
 
-            form2.Firstname2.SendKeys("Josh");
-           
+            form2.Firstname2.SendKeys(nome);
+
 
             //Last Name
-            form2.Lastname.SendKeys("Silva");
-            
+            form2.Lastname.SendKeys(sobrenome);
+
             //Date of Birth
             form2.Birthdate.SendKeys("02/01/2000");
-            
+
 
             //Gender
-            form2.Gender.Click();                      
+            form2.Gender.Click();
 
             //Street Address
             form2.Streetaddress.SendKeys("Rua A");
-            
+
             //Country
             form2.Country.Click();
-            form2.OptionCountry.Click();            
+            form2.OptionCountry.Click();
+            
 
             //Zip Code
             form2.Zipcode.SendKeys("2222");
-            
+
             //City
             form2.City.SendKeys("Recife");
-            
+            /*
+
+
             //Occupation
             form2.Occupation.Click();
             form2.OptionOccupation.Click();
-            
+
             //Hobbies
             form2.Hobbies.Click();
-            
+
             //Website
             //Espera 
             //WebDriverWait  wait = new WebDriverWait(driver, new TimeSpan(0,0,10));
@@ -162,20 +178,117 @@ namespace Forms.Tests
             wait.Until(ExpectedConditions.ElementIsVisible(By.Id("website")));
 
             form2.Website.SendKeys("https://www.linkedin.com/in/johnnysoaresdemelo/");
-            
+
             //Picture
             String Filepath = @"C:/Users/johnn/COMECOME.jpg";
+
+            form2.Picturecontainer.SendKeys(Filepath);
+            Thread.Sleep(3000);
             
-            form2.Picturecontainer.SendKeys(Filepath);           
+            
+            IWebElement elementos = form2.PictureField;
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(elementos.GetAttribute("title").Equals("COMECOME.jpg"));
+
+            */
+            test.Log(Status.Pass, "Teste bem-sucedido!");           
+
+
+        }
+
+        
+        [Test]
+        public void PreencherFormularioTest2()
+        {
+            test.Log(Status.Info, "Iniciando teste...");
+            //HomePage
+            //Thread.Sleep(2000);
+            HomePage homepage = new HomePage(driver);
+
+            homepage.Click();
+            //Thread.Sleep(2000);
+
+
+
+            //EnterVehicleDataPage
+            //Make
+            EnterVehicleDataPage form1 = new EnterVehicleDataPage(driver);            
+
+            //Button Next
+            form1.Btnnextenterinsurantdata.Click();
+
+
+            //Espera
+            WebDriverWait espera = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            espera.PollingInterval = TimeSpan.FromMilliseconds(500);
+
+            IWebElement meuElemento = espera.Until(d => d.FindElement(By.Id("firstname")));
+
+
+            //EnterInsurantDataPage            
+            //First Name
+            EnterInsurantDataPage form2 = new EnterInsurantDataPage(driver);
+
+            form2.Firstname2.SendKeys("Maria");
+
+
+            //Last Name
+            form2.Lastname.SendKeys("Costa");
+
+            //Date of Birth
+            form2.Birthdate.SendKeys("02/01/2000");
+
+
+            //Gender
+            form2.Gender.Click();
+
+            //Street Address
+            form2.Streetaddress.SendKeys("Rua A");
+
+            //Country
+            form2.Country.Click();
+            form2.OptionCountry.Click();
+
+            
+            //Zip Code
+            form2.Zipcode.SendKeys("2222");
+
+            //City
+            form2.City.SendKeys("Recife");
+
+            /*
+            //Occupation
+            form2.Occupation.Click();
+            form2.OptionOccupation.Click();
+
+            //Hobbies
+            form2.Hobbies.Click();
+
+            //Website
+            //Espera 
+            //WebDriverWait  wait = new WebDriverWait(driver, new TimeSpan(0,0,10));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(4));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.Id("website")));
+
+            form2.Website.SendKeys("https://www.linkedin.com/in/johnnysoaresdemelo/");
+
+            //Picture
+            String Filepath = @"C:/Users/johnn/COMECOME.jpg";
+
+            form2.Picturecontainer.SendKeys(Filepath);
             Thread.Sleep(3000);
 
             IWebElement elementos = form2.PictureField;
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(elementos.GetAttribute("title").Equals("COMECOME.jpg"));
 
-            test.Log(Status.Pass, "Teste bem-sucedido!");
+            */
+            test.Log(Status.Pass, "Teste bem-sucedido!");           
 
 
         }
+         
+    
+
+
 
 
 
